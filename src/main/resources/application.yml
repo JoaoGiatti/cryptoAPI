@@ -1,0 +1,50 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: crypto-transfer-api
+  datasource:
+    url: jdbc:postgresql://localhost:5432/cryptodb
+    username: ${DB_USERNAME:postgres}
+    password: ${DB_PASSWORD:postgres}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+
+binance:
+  api-key: ${BINANCE_API_KEY}
+  secret-key: ${BINANCE_SECRET_KEY}
+  base-url: https://api.binance.com
+  timeout-seconds: 30
+  max-retries: 3
+
+jwt:
+  secret: ${JWT_SECRET:super-secret-key-change-in-production-32chars}
+  expiration-ms: 86400000   # 24 hours
+
+springdoc:
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics
+  endpoint:
+    health:
+      show-details: when-authorized
+
+logging:
+  level:
+    com.cryptoapi: INFO
+    org.springframework.web: WARN
